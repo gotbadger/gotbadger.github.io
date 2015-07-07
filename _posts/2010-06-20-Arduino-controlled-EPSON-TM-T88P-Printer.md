@@ -25,7 +25,7 @@ Centronics Handshake Diagram from beyondlogic.org
 
 Think of the handshake as; you wait for the printer to be free (busy
 low) enter the number you want to send (set the 8 bits of your byte on
-the data lines) then pull the send lever old cash register style 
+the data lines) then pull the send lever old cash register style
 (strobe low wait stobe high). Its not a partuclay dificult concept but I
 found the diagram hard to understand becuase for some reason I thought
 it had to be more complicated than it actualy was.
@@ -297,27 +297,27 @@ output.
 
 First lets setup the pins as in the table above we will also setup a
 serial connection so we can do debugging.
+{% highlight c %}
+int strobe = 12;
+int busy = 11;
+int ack = 10;
 
-	int strobe = 12;
-	int busy = 11;
-	int ack = 10;
-	
-	void setup()   {
-	  pinMode(strobe, OUTPUT);
-	  //setup stobe high
-	  digitalWrite(strobe, HIGH);
-	  //setup handshake listeners
-	  pinMode(busy, INPUT);
-	  pinMode(ack, INPUT);
-	  for(int i=2;i<10;i++){
-	     pinMode(i, OUTPUT);
-	     //setup inital condition
-	     digitalWrite(i, LOW);
-	  }
-	  Serial.begin(115200);
-	  Serial.println("READY:");
-	}
-
+void setup()   {
+  pinMode(strobe, OUTPUT);
+  //setup stobe high
+  digitalWrite(strobe, HIGH);
+  //setup handshake listeners
+  pinMode(busy, INPUT);
+  pinMode(ack, INPUT);
+  for(int i=2;i<10;i++){
+     pinMode(i, OUTPUT);
+     //setup inital condition
+     digitalWrite(i, LOW);
+  }
+  Serial.begin(115200);
+  Serial.println("READY:");
+}
+{% endhighlight %}
 To start with we can actual simplify the handsake further by ignoring
 the ACK since BUSY should always go low when we are OK to send more
 data. With this in mind we end up with 3 main steps:
@@ -329,31 +329,31 @@ data. With this in mind we end up with 3 main steps:
 For the wait not busy function i decided to go with a simple poll, every
 100 iterations it prints a ‘.’ so we can see in the terminal if its got
 stuck.
-
-	void pollWait(int port){
-	  int i = 0;
-	  while(digitalRead(port) == 1){
-	    i++;
-	    if(i>100){
-	      i=0;
-	     Serial.print(".");
-	    }
-	  }
-	}
-
+{% highlight c %}
+void pollWait(int port){
+  int i = 0;
+  while(digitalRead(port) == 1){
+    i++;
+    if(i>100){
+      i=0;
+     Serial.print(".");
+    }
+  }
+}
+{% endhighlight %}
 Strobe function is nice and simple. Suposidly you can have any value
 greater than 0.5 microseconds for the strobe and it will work. To keep
 it simple i just went with 1ms.
-
-	void doStrobe(){
-	    digitalWrite(strobe, LOW);
-	    delay(1);
-	    digitalWrite(strobe, HIGH);
-	}
-
+{% highlight c %}
+void doStrobe(){
+    digitalWrite(strobe, LOW);
+    delay(1);
+    digitalWrite(strobe, HIGH);
+}
+{% endhighlight %}
 Setting the datalines we use i+2 as the first bit is written to pin 2
 etc.
-
+{% highlight c %}
 	void setLines(byte out){
 	  //loop over data lines
 	  for(int i=0;i<8;i++){
@@ -365,50 +365,51 @@ etc.
 	     //bit is 0 so set low
 	     digitalWrite(i+2, LOW);
 	   }
-	
+
 	  }
 	}
+	{% endhighlight %}
 Now we use all these functions to send a byte to the printer
-
-	void dataHandShake(byte a){
-	    pollWait(busy);
-	    setLines(a);
-	    doStrobe();
-	}
-
+{% highlight c %}
+void dataHandShake(byte a){
+    pollWait(busy);
+    setLines(a);
+    doStrobe();
+}
+{% endhighlight %}
 Finaly we can make a small program to print somthing. Its worth making
 sure things only happen once… you dont want your printer spewing paper
 while you try and turn it off!
 
 Add the following global:
-
-	boolean go = true;
-
+{% highlight c %}
+boolean go = true;
+{% endhighlight %}
 Then quick and dirty hello world:
 
-
-	void loop()
-	{
-	 //so we dont end up with a constant stream
-	 if(go){
-	     dataHandShake('H');
-	     dataHandShake('e');
-	     dataHandShake('l');
-	     dataHandShake('l');
-	     dataHandShake('o');
-	     dataHandShake(' ');
-	     dataHandShake('W');
-	     dataHandShake('o');
-	     dataHandShake('r');
-	     dataHandShake('l');
-	     dataHandShake('d');
-	     //send Line feed so it prints the line
-	     dataHandShake(0x0A);
-	     go = false;
-	     Serial.println("DONE");
-	   }
-	}
-
+{% highlight c %}
+void loop()
+{
+ //so we dont end up with a constant stream
+ if(go){
+     dataHandShake('H');
+     dataHandShake('e');
+     dataHandShake('l');
+     dataHandShake('l');
+     dataHandShake('o');
+     dataHandShake(' ');
+     dataHandShake('W');
+     dataHandShake('o');
+     dataHandShake('r');
+     dataHandShake('l');
+     dataHandShake('d');
+     //send Line feed so it prints the line
+     dataHandShake(0x0A);
+     go = false;
+     Serial.println("DONE");
+   }
+}
+{% endhighlight %}
 
 We now end up with something that looks like this:
 
