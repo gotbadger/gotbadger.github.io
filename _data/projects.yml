@@ -1,0 +1,8 @@
+- name: ZNC for Docker
+  link: https://github.com/gotbadger/docker-znc
+
+- name: Jurassic Park Security
+  link: https://github.com/gotbadger/Jurassic-Park-Security
+
+- name: Crab Synth
+  link: https://github.com/gotbadger/crab-synth
