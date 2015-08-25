@@ -1,3 +1,6 @@
+- name: Mumble for Docker
+  link: https://github.com/gotbadger/docker-mumble-server
+
 - name: ZNC for Docker
   link: https://github.com/gotbadger/docker-znc
 
