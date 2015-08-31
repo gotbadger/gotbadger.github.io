@@ -1,6 +1,6 @@
 # Site settings
 title: Gotbadger
-email: your-email@domain.com
+email: "p.j.hayton@hotmail.com"
 description: "Blog of Philip Hayton"
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://gotbadger.uk" # the base hostname & protocol for your site
