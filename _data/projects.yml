@@ -1,3 +1,9 @@
+- name: Mandelbrot in Go
+  link: https://github.com/gotbadger/mandelbrot
+  
+- name: Mandelbrot in Ruby
+  link: https://github.com/gotbadger/ruby-mandelbrot
+
 - name: Mumble for Docker
   link: https://github.com/gotbadger/docker-mumble-server
 
