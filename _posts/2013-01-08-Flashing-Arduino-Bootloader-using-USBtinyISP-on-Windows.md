@@ -20,7 +20,7 @@ Setup
 
 First make sure you have all the software/drivers setup for the above. Connect the programer to the ICSP port on the arduino make sure you get the right port and get it the right way round!
 
-![Connected up](https://dl.dropbox.com/u/78443198/apps/scriptogram/icsp.jpg)
+![Connected up](/assets/icsp.jpg)
 
 You need to power up both the dev board and the programmer. Now test that AVR dude can communicate with the board be running the following by reading the fuses of the chip
 {% highlight bash %}

@@ -1,3 +1,6 @@
+- name: IoT Sensor for ESP8266
+  link: https://github.com/gotbadger/iot-sensor
+
 - name: Mandelbrot in Go
   link: https://github.com/gotbadger/mandelbrot
   

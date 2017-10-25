@@ -8,7 +8,7 @@ tags: [Electronics, Open Source, Programing]
 The EPSON TM-T88P is a parallel controlled printer. It came to be in my
 possession after going along to a kind of computer jumble sale 5 quid got me this:
 
-![Epson printer at #bcne3](http://dl.dropbox.com/u/78443198/apps/scriptogram/epson.jpg)
+![Epson printer at #bcne3](/assets/epson.jpg)
 
 Centronics Handsake
 -------------------
@@ -19,7 +19,7 @@ Centronics standard AKA Compatibility Mode since its about as basic as
 you can get. Heres a diagram from the excellent
 [http://www.beyondlogic.org][]
 
-![parallel port handshake](http://dl.dropbox.com/u/78443198/apps/scriptogram/parallelport_img_0.jpg)
+![parallel port handshake](/assets/parallelport_img_0.jpg)
 
 Centronics Handshake Diagram from beyondlogic.org
 

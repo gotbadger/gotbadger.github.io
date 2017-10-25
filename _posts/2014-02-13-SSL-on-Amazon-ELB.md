@@ -3,7 +3,7 @@ layout: post
 title: "Comodo Instant SSL Certs on Amazon ELB"
 modified: 2013-08-03
 tags: [Devops, AWS]
-image: /assets/images/aws.jpg
+image: /assets/aws.jpg
 ---
 
 Getting SSL certs working always ends up being a case of knowing what *generaly* is required but the specific quirks of each platfrom end up throwing a spanner in the works. Hopefully this will help somone in getting things working.
@@ -43,4 +43,4 @@ Finally add certificate chain data from site.ca-bundle:
   {% endhighlight %}
 Click Save and if everything was valid you should now have a working ssl setup. you can use one of the many online tools such as [http://www.digicert.com/help/](http://www.digicert.com/help/) to make sure the SSL setup is completely valid.
 
-[1]: http://dl.dropbox.com/u/78443198/apps/scriptogram/aws-ssl.png
+[1]: /assets/aws-ssl.png
