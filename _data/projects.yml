@@ -1,20 +1,31 @@
-- name: IoT Sensor for ESP8266
-  link: https://github.com/gotbadger/iot-sensor
+- name: HomeIoT
+  description: This project puts together cheap easily obtainable dev boards and a 3d printed cases to create cheap but accurate IoT environmental sensors. Most projects use a busy loop that heats up the micro which effects temperature readings, but in this one I use the ESP8266 deep sleep to keep things cool.
+  link: https://github.com/gotbadger/HomeIoT
+
+- name: Epsongram
+  description: What do you get when you cross an ancient Epson thermal printer, Instagram and a python hack job? A project that allows you to create a permanent receipt of your finest Instagram favorites.
+  link: https://github.com/gotbadger/Epsongram
+
+- name: Borderless CSV
+  description: FreeAgent does not like exports from Transferwise Borderless accounts. This simple converter sorts things out.
+  link: https://github.com/gotbadger/borderless_csv
+
+- name: Dubble
+  description: Dubble was a double exposure photo app, you could mix your photos with anyone else in the world. Our users loved it but unfortuantly it didnt work out. The app may be gone but I created an archive so you dear reader, can still experience some of its magic.
+  link: https://dubble.netlify.com/
 
 - name: Mandelbrot in Go
+  description: I was intrested in generating a more detailed representation of the Mandlebrot set and seeing if I could get it to display in terminal.
   link: https://github.com/gotbadger/mandelbrot
-  
+
 - name: Mandelbrot in Ruby
+  description: I've always been facinated by the Mandelbrot set. This generates a colourful text only version in the terminal.
   link: https://github.com/gotbadger/ruby-mandelbrot
 
-- name: Mumble for Docker
-  link: https://github.com/gotbadger/docker-mumble-server
-
-- name: ZNC for Docker
-  link: https://github.com/gotbadger/docker-znc
-
 - name: Jurassic Park Security
+  description: Absolute nonsense for my own ammusement.
   link: https://github.com/gotbadger/Jurassic-Park-Security
 
 - name: Crab Synth
+  description: During a hackathon we where challanged to come up new ways of displaying scientific data. This project maps variations in reading to tone changes creating a somewhat eerie represntaiton of that data!
   link: https://github.com/gotbadger/crab-synth

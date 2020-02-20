@@ -1,37 +1,33 @@
 ---
-layout: homepage
+layout: default
 ---
-<header class="site-header">
 
-  <div class="wrapper">
+<p>
+  Hi I'm Philip Hayton a contract software engineer, also known as gotbadger
+  online and I like to make stuff.
+</p>
 
-    <h1>{{ site.title }}</a>
-
-  </div>
-
-</header>
-<div class="home">
-
-  <p>I used to have a fancy blog but it was kinda dull and generic so I made this. Stuff I made that might be intresting follows.</p>
-
-  <h2 class="page-heading">Words</h2>
-
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-      </li>
-    {% endfor %}
-  </ul>
-
-  <h2 class="page-heading">Code</h2>
-
-  <ul class="post-list">
-    {% for project in site.data.projects %}
-      <li>
-          <a class="post-link" href="{{ project.link}}">{{ project.name }}</a>
-      </li>
-    {% endfor %}
-  </ul>
-
+<h2 class="page-heading">Projects</h2>
+<div id="projects">
+  {% for project in site.data.projects %}
+  <h3><a class="post-link" href="{{ project.link}}">{{ project.name }}</a></h3>
+  <p>{{project.description}}</p>
+  {% endfor %}
 </div>
+
+<h2 class="page-heading">Words</h2>
+<p>
+  I usually prefer to create self contained projects than write but when I do it
+  ends up here.
+</p>
+{% assign posts = site.posts | sort: 'date' %}
+<ul class="post-list">
+  {% for post in site.posts %}
+  <li>
+    {{ post.date | date: "[%Y-%m-%d]" }}
+    <a class="post-link" href="{{ post.url | prepend: site.baseurl }}"
+      >{{ post.title }}</a
+    >
+  </li>
+  {% endfor %}
+</ul>

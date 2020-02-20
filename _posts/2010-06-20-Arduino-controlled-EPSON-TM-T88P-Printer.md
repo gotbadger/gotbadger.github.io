@@ -1,7 +1,7 @@
 ---
 layout: post
 Title: Arduino controlled EPSON TM-T88P Printer
-Date: 2010-06-20 17:00  
+Date: 2010-06-20 17:00
 tags: [Electronics, Open Source, Programing]
 ---
 
@@ -10,8 +10,7 @@ possession after going along to a kind of computer jumble sale 5 quid got me thi
 
 ![Epson printer at #bcne3](/assets/epson.jpg)
 
-Centronics Handsake
--------------------
+## Centronics Handsake
 
 It turns out there are a number of ways to communicate with printers and
 the Epson supports a number of these methods. I decided to go with the
@@ -30,8 +29,7 @@ the data lines) then pull the send lever old cash register style
 found the diagram hard to understand becuase for some reason I thought
 it had to be more complicated than it actualy was.
 
-Wiring Up
----------
+## Wiring Up
 
 Nothing too complex here the table below show the Socket to Arduino
 linkup:
@@ -287,8 +285,7 @@ n/a
 You only need to wire up one of the ground lines since they will all be
 connected to ground in the printer anyway (lazy method) ! :)
 
-Programming
------------
+## Programming
 
 Its worth pointing out at this stage that you might want to make up some
 kind of parallel port debuger so you can get an idea of whats actualy
@@ -302,20 +299,20 @@ int strobe = 12;
 int busy = 11;
 int ack = 10;
 
-void setup()   {
-  pinMode(strobe, OUTPUT);
-  //setup stobe high
-  digitalWrite(strobe, HIGH);
-  //setup handshake listeners
-  pinMode(busy, INPUT);
-  pinMode(ack, INPUT);
-  for(int i=2;i<10;i++){
-     pinMode(i, OUTPUT);
-     //setup inital condition
-     digitalWrite(i, LOW);
-  }
-  Serial.begin(115200);
-  Serial.println("READY:");
+void setup() {
+pinMode(strobe, OUTPUT);
+//setup stobe high
+digitalWrite(strobe, HIGH);
+//setup handshake listeners
+pinMode(busy, INPUT);
+pinMode(ack, INPUT);
+for(int i=2;i<10;i++){
+pinMode(i, OUTPUT);
+//setup inital condition
+digitalWrite(i, LOW);
+}
+Serial.begin(115200);
+Serial.println("READY:");
 }
 {% endhighlight %}
 To start with we can actual simplify the handsake further by ignoring
@@ -331,14 +328,14 @@ For the wait not busy function i decided to go with a simple poll, every
 stuck.
 {% highlight c %}
 void pollWait(int port){
-  int i = 0;
-  while(digitalRead(port) == 1){
-    i++;
-    if(i>100){
-      i=0;
-     Serial.print(".");
-    }
-  }
+int i = 0;
+while(digitalRead(port) == 1){
+i++;
+if(i>100){
+i=0;
+Serial.print(".");
+}
+}
 }
 {% endhighlight %}
 Strobe function is nice and simple. Suposidly you can have any value
@@ -346,35 +343,36 @@ greater than 0.5 microseconds for the strobe and it will work. To keep
 it simple i just went with 1ms.
 {% highlight c %}
 void doStrobe(){
-    digitalWrite(strobe, LOW);
-    delay(1);
-    digitalWrite(strobe, HIGH);
+digitalWrite(strobe, LOW);
+delay(1);
+digitalWrite(strobe, HIGH);
 }
 {% endhighlight %}
 Setting the datalines we use i+2 as the first bit is written to pin 2
 etc.
 {% highlight c %}
-	void setLines(byte out){
-	  //loop over data lines
-	  for(int i=0;i<8;i++){
-	    //check and set
-	   if(bitRead(out, i) == 1){
-	     //write to pint we start at 2 so +2
-	     digitalWrite(i+2, HIGH);
-	   }else{
-	     //bit is 0 so set low
-	     digitalWrite(i+2, LOW);
-	   }
+void setLines(byte out){
+//loop over data lines
+for(int i=0;i<8;i++){
+//check and set
+if(bitRead(out, i) == 1){
+//write to pint we start at 2 so +2
+digitalWrite(i+2, HIGH);
+}else{
+//bit is 0 so set low
+digitalWrite(i+2, LOW);
+}
 
-	  }
-	}
-	{% endhighlight %}
+      }
+    }
+    {% endhighlight %}
+
 Now we use all these functions to send a byte to the printer
 {% highlight c %}
 void dataHandShake(byte a){
-    pollWait(busy);
-    setLines(a);
-    doStrobe();
+pollWait(busy);
+setLines(a);
+doStrobe();
 }
 {% endhighlight %}
 Finaly we can make a small program to print somthing. Its worth making
@@ -390,32 +388,32 @@ Then quick and dirty hello world:
 {% highlight c %}
 void loop()
 {
- //so we dont end up with a constant stream
- if(go){
-     dataHandShake('H');
-     dataHandShake('e');
-     dataHandShake('l');
-     dataHandShake('l');
-     dataHandShake('o');
-     dataHandShake(' ');
-     dataHandShake('W');
-     dataHandShake('o');
-     dataHandShake('r');
-     dataHandShake('l');
-     dataHandShake('d');
-     //send Line feed so it prints the line
-     dataHandShake(0x0A);
-     go = false;
-     Serial.println("DONE");
-   }
+//so we dont end up with a constant stream
+if(go){
+dataHandShake('H');
+dataHandShake('e');
+dataHandShake('l');
+dataHandShake('l');
+dataHandShake('o');
+dataHandShake(' ');
+dataHandShake('W');
+dataHandShake('o');
+dataHandShake('r');
+dataHandShake('l');
+dataHandShake('d');
+//send Line feed so it prints the line
+dataHandShake(0x0A);
+go = false;
+Serial.println("DONE");
+}
 }
 {% endhighlight %}
 
 We now end up with something that looks like this:
 
-![Hello World!](http://dl.dropbox.com/u/78443198/apps/scriptogram/hello-world.jpg)
+![Hello World!](/assets/hello-world.jpg)
 
 Thats all for now in a future post (hopefully!) I will be looking at
 more advanced printing.
 
-  [http://www.beyondlogic.org]: http://www.beyondlogic.org
+[http://www.beyondlogic.org]: http://www.beyondlogic.org
