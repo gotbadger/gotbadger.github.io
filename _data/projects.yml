@@ -1,3 +1,7 @@
+- name: Primos Log Parser
+  description: Some fun is had reversing a proprietary binary log format and with the use of a wifi sd card we extract metrics from a solar DHW system. 
+  link: https://github.com/gotbadger/primos-log-parser
+
 - name: HomeIoT
   description: This project puts together cheap easily obtainable dev boards and a 3d printed cases to create cheap but accurate IoT environmental sensors. Most projects use a busy loop that heats up the micro which effects temperature readings, but in this one I use the ESP8266 deep sleep to keep things cool.
   link: https://github.com/gotbadger/HomeIoT
